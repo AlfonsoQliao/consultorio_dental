@@ -1,0 +1,67 @@
+<nav class="navbar navbar-default navbar-static-top" style="background:#2196F3; margin-bottom: 0px; border-color: #2196F3;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-1">
+        <span class="sr-only">Menu</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="#" class="navbar-brand" style="color: white;">CDE</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-1">
+      <ul class="nav navbar-nav">
+        <li><%= link_to "Agenda", appointments_Agenda_path, :id => "pestaña" %></li>
+        <li><%= link_to "Expedientes", patients_Expediente_path, :id => "pestaña" %></li>
+        <li><%= link_to "Proveedores", suppliers_Proveedores_path, :id => "pestaña"  %></li>
+        <li><%= link_to "Material", materials_Inventario_path, :id => "pestaña"  %></li>
+        <li><%= link_to "Dentistas", dentists_Dentistas_path, :id => "seleccion" %></li>
+        <li><%= link_to "Asistentes", assistants_Asistentes_path, :id => "pestaña" %></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid" style="background: #2196F3; box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);">
+  <div class="row">
+    <br>
+  </div>
+</div>
+
+<div class="contenedor-formulario" align="center">
+  <div class="wrap col-md-12">
+    <!--Ruby adapted form--------------------------------->
+    <%= form_for(:dentist,
+                 :url => url_for(:controller => 'dentists', :action => 'ModificarDentista'),
+                 :html => {class:"formulario"}) do |f|%>
+        <div class="input-group">
+          <%= f.text_field(:name) %>
+          <%= f.label(:name, "Nombre")%>
+        </div>
+        <div class="input-group">
+          <%= f.text_field(:surname) %>
+          <%= f.label(:surname, "Apellido")%>
+        </div>
+        <div class="input-group">
+          <%= f.text_field(:specialty) %>
+          <%= f.label(:specialty, "Especialidad")%>
+        </div>
+        <div class="input-group">
+          <%= f.text_field(:phone) %>
+          <%= f.label(:phone, "Teléfono")%>
+        </div>
+        <div class="input-group">
+          <%= f.text_field(:address)%>
+          <%= f.label(:address, "Dirección") %>
+        </div>
+        <div class="input-group">
+          <%= f.text_field(:mail)%>
+          <%= f.label(:mail, "Correo") %>
+        </div>
+        <div class="input-group">
+          <%= f.text_field(:rfc)%>
+          <%= f.label(:rfc, "RFC") %>
+        </div>
+        <%= submit_tag("Modificar",:html=> {id: "btn-agregar"}) %>
+    <% end %>
+  </div>
+</div>

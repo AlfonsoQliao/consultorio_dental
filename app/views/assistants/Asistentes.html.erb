@@ -1,0 +1,97 @@
+
+<nav class="navbar navbar-default navbar-static-top" style="background:#2196F3; margin-bottom: 0px; border-color: #2196F3;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-1">
+        <span class="sr-only">Menu</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="#" class="navbar-brand" style="color: white;">CDE</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-1">
+      <ul class="nav navbar-nav">
+        <li><%= link_to "Agenda", appointments_Agenda_path, :id => "pestaña" %></li>
+        <li><%= link_to "Expedientes", patients_Expediente_path, :id => "pestaña" %></li>
+        <li><%= link_to "Proveedores", suppliers_Proveedores_path, :id => "pestaña"  %></li>
+        <li><%= link_to "Material", materials_Inventario_path, :id => "pestaña"  %></li>
+        <li><%= link_to "Dentistas", dentists_Dentistas_path, :id => "pestaña" %></li>
+        <li><%= link_to "Asistentes", assistants_Asistentes_path, :id => "seleccion" %></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid" style="background: #2196F3; box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);">
+  <div class="row">
+    <!--Formulario Agregar--------------------------------------------------->
+    <div class="dropdown">
+      <button class="btn btn-primary col-md-1 dropdown-toggle" data-toggle="dropdown" type="submit" style="margin-right: 10px; margin-top: 10px; margin-bottom: 10px;">Agregar</button>
+      <div class="dropdown-menu" style="margin-top: 45px;">
+        <div class="contenedor-formulario">
+          <div class="wrap">
+            <!--Ruby adapted form--------------------------------->
+            <%= form_for(:assistant,
+                         :url => url_for(:controller => 'assistants', :action => 'CrearAsistente'),
+                         :html => {class:"formulario"}) do |f|%>
+                <div class="input-group">
+                  <%= f.text_field(:name) %>
+                  <%= f.label(:name, "Nombre")%>
+                </div>
+                <div class="input-group">
+                  <%= f.text_field(:surname) %>
+                  <%= f.label(:surname, "Apellido")%>
+                </div>
+                <div class="input-group">
+                  <%= f.text_field(:address) %>
+                  <%= f.label(:address, "Dirección")%>
+                </div>
+                <div class="input-group">
+                  <%= f.text_field(:phone) %>
+                  <%= f.label(:phone, "Teléfono")%>
+                </div>
+                <div class="input-group">
+                  <%= f.text_field(:social_security_number) %>
+                  <%= f.label(:social_security_number, "Número de SS")%>
+                </div>
+                <%= submit_tag("Agregar",:html=> {id: "btn-agregar"}) %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!----------------------------------------------------------------------->
+
+    <%= form_tag(assistants_Buscar_path, :method => "get", id: "search-form", class: 'col-md-2 pull-right', :id => "buscar") do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search Posts" %>
+    <% end %>
+
+  </div>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped table-bordered" style="margin-top: 10px;">
+    <tr>
+      <th></th>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Dirección</th>
+      <th>Teléfono</th>
+      <th>Número de seguro social</th>
+    </tr>
+    <% @assistants.each do |assistant| %>
+        <tr>
+          <td>
+            <%= link_to("Editar",{:controller => 'assistants', :action => 'MostrarAsistente', id: assistant.id}) %> -
+            <%= link_to("Borrar",{:controller => 'assistants', :action => 'BorrarAsistente', id: assistant.id}) %>
+          </td>
+          <td><%= assistant.id %></td>
+          <td><%= assistant.name %></td>
+          <td><%= assistant.surname %></td>
+          <td><%= assistant.address %></td>
+          <td><%= assistant.phone %></td>
+          <td><%= assistant.social_security_number %></td>
+        </tr>
+    <% end %>
+  </table>
+</div>

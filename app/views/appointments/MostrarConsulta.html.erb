@@ -1,0 +1,79 @@
+<nav class="navbar navbar-default navbar-static-top" style="background:#2196F3; margin-bottom: 0px; border-color: #2196F3;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-1">
+        <span class="sr-only">Menu</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="#" class="navbar-brand" style="color: white;">CDE</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-1">
+      <ul class="nav navbar-nav">
+        <li><%= link_to "Agenda", appointments_Agenda_path, :id => "seleccion" %></li>
+        <li><%= link_to "Expedientes", patients_Expediente_path, :id => "pestaña" %></li>
+        <li><%= link_to "Proveedores", suppliers_Proveedores_path, :id => "pestaña"  %></li>
+        <li><%= link_to "Material", materials_Inventario_path, :id => "pestaña"  %></li>
+        <li><%= link_to "Dentistas", dentists_Dentistas_path, :id => "pestaña" %></li>
+        <li><%= link_to "Asistentes", assistants_Asistentes_path, :id => "pestaña" %></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid" style="background: #2196F3; box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);">
+  <div class="row">
+    <br>
+  </div>
+</div>
+<div class="contenedor-formulario" align="center">
+  <div class="wrap col-md-12">
+    <!--Ruby adapted form--------------------------------->
+    <%= form_for(:appointment,
+                 :url => url_for(:controller => 'appointments', :action => 'ModificarConsulta'),
+                 :html => {class:"formulario"}) do |f|%>
+        <div class="input-group">
+          <%= f.text_field(:name) %>
+          <%= f.label(:name, "Nombre")%>
+        </div>
+        <div class="input-group">
+          <%= f.text_field(:lastname) %>
+          <%= f.label(:lastname, "Apellido")%>
+        </div>
+        <div class="input-group">
+          <%= f.label(:begin,"Hora de inicio")%>
+          <%= f.time_select(:begin,{minute_step:30, start_hour:8, end_hour:20})%>
+        </div>
+        <div class="input-group">
+          <%= f.label(:end, "Hora de fin") %>
+          <%= f.time_select(:end,{minute_step:30, start_hour:8, end_hour:20})%>
+        </div>
+        <div class="input-group">
+          <br>
+          <%= f.label(:dentist_id, "Dentista")%>
+          <%= f.collection_select(:dentist_id, Dentist.all,:id,:name) %>
+          <br>
+        </div>
+        <div class="input-group">
+          <%= f.label(:date, "Fecha de la cita") %>
+          <%= f.date_select(:date, order:[:day,:month,:year], start_year:Date.today.year+4,end_year:Date.today.year-4,use_month_numbers:true) %>
+        </div>
+        <div class="input-group">
+          <%= f.text_field(:treatments) %>
+          <%= f.label(:treatments, "Tratamiento")%>
+        </div>
+        <div class="input-group">
+          <%= f.text_field(:cost) %>
+          <%= f.label(:cost, "Costo")%>
+        </div>
+        <div class="input-group">
+          <div class="input-group">
+            <%= f.text_field(:diagnostic) %>
+            <%= f.label(:diagnostic, "Diagnóstico")%>
+          </div>
+        </div>
+        <%= submit_tag("Modificar",:html=> {id: "btn-agregar"}) %>
+        <%= link_to("Borrar", {action: 'BorrarConsulta', :id=> @appointment.id}, id: 'btn-agregar') %>
+    <% end %>
+  </div>
+</div>
